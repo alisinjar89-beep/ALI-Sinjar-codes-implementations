@@ -12,37 +12,13 @@ const initial = [{
 
 function bandClass(band){ return ['green','amber','red'].includes(band) ? band : 'amber'; }
 
+// دالة تحديد لون شريط التقدم بناءً على قيمة Eco Score
 function getEcoProgressColor(score) {
   const num = Number(score) || 0;
-  if (num >= 75) return '#2e7d32';
-  if (num >= 50) return '#81c784';
-  if (num >= 30) return '#ffb74d';
-  return '#e53935';
-}
-
-// مكون الخريطة التفاعلية
-function InteractiveMap({ lat, lon, title }) {
-  const bbox = `${lon - 0.05},${lat - 0.05},${lon + 0.05},${lat + 0.05}`;
-  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lon}`;
-
-  return (
-    <div style={{ marginTop: '10px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #ccc' }}>
-      <iframe
-        title={title || 'Interactive Route Map'}
-        width="100%"
-        height="220"
-        frameBorder="0"
-        scrolling="no"
-        src={mapUrl}
-        style={{ border: 0 }}
-      />
-      <div style={{ padding: '4px 8px', backgroundColor: '#f5f5f5', fontSize: '11px', textAlign: 'right' }}>
-        <a href={`https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=13/${lat}/${lon}`} target="_blank" rel="noreferrer">
-          فتح في OpenStreetMap ↗
-        </a>
-      </div>
-    </div>
-  );
+  if (num >= 75) return '#2e7d32'; // أخضر
+  if (num >= 50) return '#81c784'; // أخضر فاتح
+  if (num >= 30) return '#ffb74d'; // برتقالي
+  return '#e53935'; // أحمر
 }
 
 function App(){
@@ -51,7 +27,6 @@ function App(){
   const [handover,setHandover] = useState(false);
   const [busy,setBusy] = useState(false);
   const [locationStatus,setLocationStatus] = useState('Location optional');
-  const [userCoords, setUserCoords] = useState(null);
   const sender = useMemo(() => `web-${Math.random().toString(36).slice(2,9)}`, []);
 
   async function send(value){
@@ -77,8 +52,7 @@ function App(){
             from:'bot',
             cards:custom.eco_options.transport||[],
             hotels:custom.eco_options.hotels||[],
-            note:custom.eco_options.source_note,
-            coordinates: custom.eco_options.coordinates || null
+            note:custom.eco_options.source_note
           });
         }
         if(custom.carbon_result) next.push({from:'bot',carbon:custom.carbon_result});
@@ -103,9 +77,8 @@ function App(){
     setLocationStatus('Requesting permission');
     navigator.geolocation.getCurrentPosition(
       position => {
-        const lat = Number(position.coords.latitude.toFixed(5));
-        const lon = Number(position.coords.longitude.toFixed(5));
-        setUserCoords({ lat, lon });
+        const lat = position.coords.latitude.toFixed(5);
+        const lon = position.coords.longitude.toFixed(5);
         setLocationStatus('Location shared for this chat');
         send(`/inform_location{"origin_lat":${lat},"origin_lon":${lon},"location_consent":true}`);
       },
@@ -123,32 +96,17 @@ function App(){
       </div>
     </header>
     <div className="locationNote" role="status">{locationStatus}. Manual departure cities remain supported.</div>
-    
-    {userCoords && (
-      <div style={{ padding: '10px 16px' }}>
-        <strong>Your Shared Location:</strong>
-        <InteractiveMap lat={userCoords.lat} lon={userCoords.lon} title="Current Location" />
-      </div>
-    )}
-
     {handover && <div className="handover">Human advisor handover active. Conversation context is packaged securely.</div>}
-    
     <section className="chat" aria-live="polite">
       {messages.map((message,index) => <div key={index} className={`msg ${message.from}`}>
         <div className="bubble">
           {message.text && <p>{message.text}</p>}
           {message.note && <p className="note">{message.note}</p>}
-          
-          {message.coordinates && (
-            <InteractiveMap lat={message.coordinates.lat} lon={message.coordinates.lon} title="Destination Map" />
-          )}
-
           {message.carbon && <div className="carbon">
             <b>Carbon estimate</b>
             <span>{message.carbon.verified_live ? `${message.carbon.kg_co2e} kgCO2e` : 'Live value unavailable'}</span>
             <small>{message.carbon.source}</small>
           </div>}
-          
           {message.cards && <><h4>Transport comparison</h4><div className="cards">
             {message.cards.slice(0,3).map((item,j) => {
               const score = item.eco_score ?? 0;
@@ -165,7 +123,6 @@ function App(){
               );
             })}
           </div></>}
-          
           {message.hotels && <><h4>Accommodation carousel</h4><div className="cards horizontal" role="region" aria-label="Eco accommodation options">
             {message.hotels.slice(0,4).map((item,j) => {
               const score = item.eco_score ?? 0;
@@ -182,7 +139,6 @@ function App(){
               );
             })}
           </div></>}
-          
           {message.buttons?.length>0 && <div className="buttons">
             {message.buttons.map((button,j) => <button key={j} onClick={() => send(button.payload)}>{button.title}</button>)}
           </div>}
