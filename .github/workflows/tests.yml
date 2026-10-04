@@ -1,0 +1,13 @@
+name: Eco-Travel CI
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.10'}
+      - run: pip install rasa==3.6.21 rasa-sdk==3.6.2 pytest requests python-dotenv
+      - run: python -m spacy download en_core_web_md
+      - run: rasa data validate
+      - run: pytest -q tests/test_actions.py

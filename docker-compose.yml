@@ -1,0 +1,27 @@
+services:
+  rasa:
+    build:
+      context: .
+      dockerfile: Dockerfile.rasa
+    command: run --enable-api --cors "*" --port 5005 --credentials credentials.yml
+    ports:
+      - "5005:5005"
+    env_file: [.env]
+    volumes:
+      - ./models:/app/models
+    depends_on: [actions]
+
+  actions:
+    build: ./actions
+    ports:
+      - "5055:5055"
+    env_file: [.env]
+    volumes:
+      - ./mock_data:/app/mock_data:ro
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on: [rasa]
+    

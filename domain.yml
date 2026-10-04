@@ -1,0 +1,170 @@
+version: "3.1"
+intents:
+  - greet
+  - goodbye
+  - plan_trip
+  - inform_origin
+  - inform_location
+  - inform_destination
+  - inform_date
+  - inform_budget
+  - inform_sustainability
+  - ask_carbon
+  - ask_hotels
+  - ask_transport
+  - ask_activities
+  - request_handover
+  - affirm
+  - deny
+  - out_of_scope
+  - nlu_fallback
+entities:
+  - origin
+  - origin_lat
+  - origin_lon
+  - location_consent
+  - destination
+  - start_date
+  - end_date
+  - budget
+  - sustainability_level
+  - travel_mode
+slots:
+  origin:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: origin
+  origin_lat:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: origin_lat
+  origin_lon:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: origin_lon
+  location_consent:
+    type: bool
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: location_consent
+  destination:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: destination
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: destination
+  start_date:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: start_date
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: start_date
+  end_date:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: end_date
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: end_date
+  budget:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: budget
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: budget
+  sustainability_level:
+    type: categorical
+    values: [balanced, eco, maximum]
+    mappings:
+      - type: from_entity
+        entity: sustainability_level
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: sustainability_level
+  travel_mode:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: travel_mode
+  fallback_count:
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings:
+      - type: custom
+forms:
+  trip_form:
+    required_slots:
+      - destination
+      - start_date
+      - end_date
+      - budget
+      - sustainability_level
+responses:
+  utter_greet:
+    - text: "Hello. Eco-Travel Advisor compares lower-carbon travel choices, prices, and responsible local experiences."
+      buttons:
+        - title: "Plan a trip"
+          payload: "/plan_trip"
+        - title: "Compare carbon"
+          payload: "/ask_carbon"
+  utter_goodbye:
+    - text: "Safe travels. Sustainability estimates remain approximate and should support informed judgement."
+  utter_location_received:
+    - text: "Location input is stored only for this travel-planning conversation and supports location-aware recommendations."
+  utter_origin_received:
+    - text: "The departure location is saved for later carbon and routing comparisons."
+  utter_ask_trip_form_destination:
+    - text: "Which destination should the trip focus on?"
+      buttons:
+        - title: "Berlin"
+          payload: '/inform_destination{"destination":"Berlin"}'
+        - title: "Amsterdam"
+          payload: '/inform_destination{"destination":"Amsterdam"}'
+        - title: "Copenhagen"
+          payload: '/inform_destination{"destination":"Copenhagen"}'
+  utter_ask_trip_form_start_date:
+    - text: "What departure date is preferred? Please use YYYY-MM-DD."
+  utter_ask_trip_form_end_date:
+    - text: "What return date is preferred? Please use YYYY-MM-DD."
+  utter_ask_trip_form_budget:
+    - text: "What approximate total budget should guide the recommendations?"
+  utter_ask_trip_form_sustainability_level:
+    - text: "How strongly should sustainability influence the ranking?"
+      buttons:
+        - title: "Balanced"
+          payload: '/inform_sustainability{"sustainability_level":"balanced"}'
+        - title: "Eco focused"
+          payload: '/inform_sustainability{"sustainability_level":"eco"}'
+        - title: "Maximum sustainability"
+          payload: '/inform_sustainability{"sustainability_level":"maximum"}'
+  utter_out_of_scope:
+    - text: "This assistant focuses on sustainable trip planning, travel emissions, accommodation, transport, and local experiences."
+  utter_ask_more:
+    - text: "Would another comparison or a human travel advisor be helpful?"
+actions:
+  - action_search_travel_options
+  - action_calculate_carbon
+  - action_human_handover
+  - action_default_fallback
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,7 @@
+FROM rasa/rasa:3.6.21-full
+USER root
+RUN python -m spacy download en_core_web_md
+USER 1001
+WORKDIR /app
+COPY . /app
+CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--credentials", "credentials.yml"]

@@ -1,0 +1,86 @@
+{
+  "hotels": [
+    {
+      "id": "hotel-berlin-1",
+      "name": "Green Courtyard Berlin",
+      "city": "Berlin",
+      "price": 138,
+      "currency": "EUR",
+      "carbon_kg": 11.8,
+      "certification": "EU Ecolabel demo field",
+      "accessibility": "Step-free public areas",
+      "local_score": 0.9
+    },
+    {
+      "id": "hotel-berlin-2",
+      "name": "Transit Garden Hotel",
+      "city": "Berlin",
+      "price": 112,
+      "currency": "EUR",
+      "carbon_kg": 16.4,
+      "certification": "Certification status requires live verification",
+      "accessibility": "Accessible room available on request",
+      "local_score": 0.82
+    },
+    {
+      "id": "hotel-amsterdam-1",
+      "name": "Canal Circular Stay",
+      "city": "Amsterdam",
+      "price": 154,
+      "currency": "EUR",
+      "carbon_kg": 12.5,
+      "certification": "Certification status requires live verification",
+      "accessibility": "Lift access",
+      "local_score": 0.87
+    }
+  ],
+  "flights": [
+    {
+      "id": "flight-demo-1",
+      "name": "Direct economy flight",
+      "price": 210,
+      "currency": "EUR",
+      "carbon_kg": 188.0,
+      "duration_minutes": 105,
+      "source": "demo"
+    },
+    {
+      "id": "rail-demo-1",
+      "name": "Intercity rail",
+      "price": 96,
+      "currency": "EUR",
+      "carbon_kg": 29.0,
+      "duration_minutes": 390,
+      "source": "demo"
+    },
+    {
+      "id": "coach-demo-1",
+      "name": "Electric coach connection",
+      "price": 58,
+      "currency": "EUR",
+      "carbon_kg": 21.0,
+      "duration_minutes": 510,
+      "source": "demo"
+    }
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Community food market walk",
+      "city": "Berlin",
+      "price": 22,
+      "currency": "EUR",
+      "community_benefit": "Locally operated",
+      "accessibility": "Mostly step-free"
+    },
+    {
+      "id": "act-2",
+      "name": "Urban ecology cycling tour",
+      "city": "Berlin",
+      "price": 32,
+      "currency": "EUR",
+      "community_benefit": "Local guide cooperative",
+      "accessibility": "Adaptive cycle request supported"
+    }
+  ]
+}

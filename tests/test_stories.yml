@@ -1,0 +1,37 @@
+version: "3.1"
+stories:
+- story: test city break happy path
+  steps:
+    - user: |
+        plan a sustainable trip
+      intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - user: |
+        Berlin
+      intent: inform_destination
+      entities:
+        - destination: Berlin
+    - slot_was_set:
+        - destination: Berlin
+
+- story: test carbon action
+  steps:
+    - user: |
+        compare carbon emissions
+      intent: ask_carbon
+    - action: action_calculate_carbon
+
+- story: test handover
+  steps:
+    - user: |
+        connect me to a human
+      intent: request_handover
+    - action: action_human_handover
+
+- story: test nlu fallback
+  steps:
+    - user: |
+        qzxv confusing request 991
+      intent: nlu_fallback
+    - action: action_default_fallback

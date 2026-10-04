@@ -1,0 +1,79 @@
+version: "3.1"
+stories:
+- story: sustainable city break
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: inform_origin
+      entities:
+        - origin: Amsterdam
+    - slot_was_set:
+        - origin: Amsterdam
+    - action: utter_origin_received
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - slot_was_set:
+        - destination: Berlin
+        - start_date: "2026-10-15"
+        - end_date: "2026-10-18"
+        - budget: 800
+        - sustainability_level: eco
+    - action: trip_form
+    - active_loop: null
+    - action: action_search_travel_options
+    - action: utter_ask_more
+
+- story: rural eco tour with maximum sustainability
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - slot_was_set:
+        - destination: Copenhagen
+        - start_date: "2026-11-08"
+        - end_date: "2026-11-13"
+        - budget: 1100
+        - sustainability_level: maximum
+    - action: trip_form
+    - active_loop: null
+    - action: action_search_travel_options
+    - action: utter_ask_more
+    - intent: ask_activities
+    - action: action_search_travel_options
+
+- story: low carbon business trip with escalation
+  steps:
+    - intent: inform_origin
+      entities:
+        - origin: Paris
+    - slot_was_set:
+        - origin: Paris
+    - action: utter_origin_received
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - slot_was_set:
+        - destination: Berlin
+        - start_date: "2026-12-02"
+        - end_date: "2026-12-04"
+        - budget: 1300
+        - sustainability_level: balanced
+    - action: trip_form
+    - active_loop: null
+    - action: action_search_travel_options
+    - action: utter_ask_more
+    - intent: ask_carbon
+    - action: action_calculate_carbon
+    - intent: request_handover
+    - action: action_human_handover
+
+- story: user asks hotel options during planning
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - intent: ask_hotels
+    - action: action_search_travel_options
+    - action: trip_form
+    - active_loop: trip_form

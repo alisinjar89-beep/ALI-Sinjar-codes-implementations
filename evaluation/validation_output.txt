@@ -1,0 +1,6 @@
+PROJECT VALIDATION: PASS
+Required files checked: 9
+Domain intents: 18
+NLU training intents: 17
+NLU intent coverage: True
+YAML parse checks: PASS

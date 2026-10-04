@@ -1,0 +1,267 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - hi there
+    - good morning
+    - good afternoon
+    - hey eco advisor
+    - hello travel assistant
+    - hi can you help me travel sustainably
+    - greetings
+    - hello there
+    - hi advisor
+    - good evening
+    - hey
+
+- intent: goodbye
+  examples: |
+    - goodbye
+    - bye
+    - thanks goodbye
+    - that is all
+    - finish planning
+    - end chat
+    - see you later
+    - thanks for the help
+    - I am done
+    - close this conversation
+    - speak later
+    - bye for now
+
+- intent: plan_trip
+  examples: |
+    - help me plan an eco friendly trip
+    - I want to plan a sustainable holiday
+    - create a low carbon city break
+    - plan my next trip
+    - build an environmentally responsible itinerary
+    - help with a green vacation
+    - I need a sustainable travel plan
+    - plan a carbon conscious business trip
+    - arrange an eco tour
+    - start trip planning
+    - suggest a greener holiday
+    - I want responsible tourism options
+    - help me organise an eco friendly weekend
+    - plan a sustainable journey for me
+    - can we build a green itinerary
+
+- intent: inform_origin
+  examples: |
+    - I am leaving from [Amsterdam](origin)
+    - start from [Paris](origin)
+    - my departure city is [Berlin](origin)
+    - I travel from [Copenhagen](origin)
+    - origin is [Vienna](origin)
+    - begin in [Zurich](origin)
+    - I am currently in [Stockholm](origin)
+    - depart from [Lisbon](origin)
+    - start the journey in [Barcelona](origin)
+    - leaving from [Prague](origin)
+    - my starting point is [Oslo](origin)
+    - the trip begins in [Munich](origin)
+
+- intent: inform_location
+  examples: |
+    - use my current location
+    - share my location for this trip
+    - use GPS for nearby recommendations
+    - detect my location
+    - use browser location
+    - location access is allowed
+    - use my GPS position
+    - find options near my current position
+    - I consent to location use for this conversation
+    - apply my current coordinates
+    - use where I am now
+    - enable location based travel suggestions
+
+- intent: inform_destination
+  examples: |
+    - I want to visit [Berlin](destination)
+    - [Amsterdam](destination)
+    - the destination is [Copenhagen](destination)
+    - take me to [Paris](destination)
+    - I am travelling to [Vienna](destination)
+    - plan for [Zurich](destination)
+    - [Stockholm](destination) please
+    - destination [Lisbon](destination)
+    - going to [Barcelona](destination)
+    - [Prague](destination) is the place
+    - make it [Oslo](destination)
+    - I choose [Munich](destination)
+
+- intent: inform_date
+  examples: |
+    - I leave on [2026-10-15](start_date)
+    - depart [2026-11-04](start_date)
+    - return on [2026-10-18](end_date)
+    - come back [2026-11-09](end_date)
+    - from [2026-12-01](start_date) until [2026-12-05](end_date)
+    - dates are [2027-01-10](start_date) to [2027-01-15](end_date)
+    - starting [2026-10-20](start_date)
+    - ending [2026-10-24](end_date)
+    - outbound [2026-11-12](start_date)
+    - inbound [2026-11-16](end_date)
+    - travel between [2026-12-10](start_date) and [2026-12-14](end_date)
+    - book dates [2027-02-01](start_date) to [2027-02-07](end_date)
+
+- intent: inform_budget
+  examples: |
+    - my budget is [800](budget)
+    - around [1200](budget)
+    - keep it below [600](budget)
+    - I can spend [1500](budget)
+    - budget [950](budget)
+    - no more than [1000](budget)
+    - total budget is [700](budget)
+    - about [500](budget)
+    - I have [2000](budget) available
+    - please use [1100](budget) as the limit
+    - maximum [1300](budget)
+    - spend around [750](budget)
+
+- intent: inform_sustainability
+  examples: |
+    - [balanced](sustainability_level)
+    - use an [eco](sustainability_level) focus
+    - [maximum](sustainability_level) sustainability
+    - balance cost and carbon
+    - make emissions very important
+    - put sustainability first
+    - keep a moderate green preference
+    - choose the greenest practical options
+    - environmental impact matters most
+    - cost matters equally with sustainability
+    - I prefer low carbon choices
+    - use strong sustainability weighting
+
+- intent: ask_carbon
+  examples: |
+    - calculate the carbon footprint
+    - compare travel emissions
+    - how much carbon does the flight produce
+    - show CO2 for the train
+    - estimate emissions for this journey
+    - compare air and rail carbon
+    - what is the lowest emission transport
+    - carbon footprint please
+    - calculate kg CO2e
+    - show transport carbon impact
+    - how green is this route
+    - estimate emissions between these cities
+    - compare car train and plane
+
+- intent: ask_hotels
+  examples: |
+    - show eco certified hotels
+    - find sustainable accommodation
+    - what green hotels are available
+    - recommend an eco hotel
+    - show lower impact places to stay
+    - sustainable lodging options
+    - find responsible accommodation
+    - any certified green hotels
+    - compare hotel sustainability
+    - accommodation with environmental credentials
+    - show accessible eco hotels
+    - hotel options please
+
+- intent: ask_transport
+  examples: |
+    - show green transport options
+    - compare train and flight
+    - what public transport is available
+    - recommend low carbon transport
+    - find rail options
+    - show buses and trains
+    - what is the cleanest way to travel
+    - transport recommendations
+    - can I avoid flying
+    - compare travel modes
+    - show lower emission routes
+    - help with local transit
+
+- intent: ask_activities
+  examples: |
+    - suggest local cultural experiences
+    - find community based activities
+    - what sustainable activities can I do
+    - recommend local experiences
+    - show responsible tourism activities
+    - cultural events please
+    - find low impact activities
+    - support local communities
+    - suggest walking tours
+    - eco friendly things to do
+    - recommend local food experiences
+    - community tourism options
+
+- intent: request_handover
+  examples: |
+    - I want a human advisor
+    - speak to a travel specialist
+    - transfer me to a person
+    - this itinerary is complicated
+    - I need expert help
+    - escalate this plan
+    - connect me to a human
+    - let an advisor review this
+    - I need personalised consultation
+    - human support please
+    - can a travel agent take over
+    - hand this conversation to an advisor
+
+- intent: affirm
+  examples: |
+    - yes
+    - correct
+    - that works
+    - please do
+    - exactly
+    - sure
+    - continue
+    - sounds good
+    - yes please
+    - okay
+
+- intent: deny
+  examples: |
+    - no
+    - not that
+    - stop
+    - no thanks
+    - incorrect
+    - change it
+    - I do not want that
+    - cancel that
+    - not now
+    - definitely not
+
+- intent: out_of_scope
+  examples: |
+    - write my programming assignment
+    - tell me a joke
+    - what is the stock market doing
+    - diagnose my illness
+    - order food for me
+    - who won the football match
+    - explain quantum mechanics
+    - write a poem
+    - solve my taxes
+    - what is the weather on mars
+    - buy cryptocurrency
+    - translate this legal contract
+
+- synonym: eco
+  examples: |
+    - eco focused
+    - low carbon
+    - greener
+- synonym: maximum
+  examples: |
+    - sustainability first
+    - greenest
+    - strongest sustainability
